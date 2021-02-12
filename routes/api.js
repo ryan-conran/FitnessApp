@@ -27,7 +27,7 @@ router.get('/workouts', async (req, res, next) => {
         return res.sendStatus(500);
     }
 
-    res.send(workouts);
+    res.json(workouts);
 });
 
 router.put('/workouts/:_id', async (req, res, next) => {

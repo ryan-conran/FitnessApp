@@ -10,7 +10,7 @@ const WorkoutSchema = new Schema({
         type: Date,
         default: () => new Date(),
       },
-    duration: {
+    totalDuration: {
         type: Number,
         required: true,
     }
