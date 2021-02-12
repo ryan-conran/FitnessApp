@@ -59,4 +59,11 @@ router.put('/workouts/:_id', async (req, res, next) => {
     res.sendStatus(200);
 });
 
+router.get('/workouts/range', async (req, res, next) => { 
+
+
+
+
+})
+
 module.exports = router;
