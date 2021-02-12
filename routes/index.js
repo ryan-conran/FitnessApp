@@ -3,9 +3,9 @@ const router = express.Router();
 const path = require('path');
 
 /* GET home page. */
-router.get('/', function(req, res) {
-  res.sendFile(path.resolve('public/index.html'));
-});
+// router.get('/', function(req, res) {
+//   res.sendFile(path.resolve('public/index.html'));
+// });
 
 /* GET home page. */
 router.get('/exercise', function(req, res) {
