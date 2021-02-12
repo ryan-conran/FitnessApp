@@ -3,9 +3,9 @@ const router = express.Router();
 const path = require('path');
 
 /* GET home page. */
-// router.get('/', function(req, res) {
-//   res.sendFile(path.resolve('public/index.html'));
-// });
+ router.get('/', function(req, res) {
+   res.sendFile(path.resolve('public/index.html'));
+ });
 
 /* GET home page. */
 router.get('/exercise', function(req, res) {
@@ -14,7 +14,8 @@ router.get('/exercise', function(req, res) {
 
   /* GET home page. */
 router.get('/stats', function(req, res) {
-    res.sendFile(path.resolve('public/stats.html'));
+  //path.join   
+  res.sendFile(path.resolve('public/stats.html'));
   });
 
 module.exports = router;
