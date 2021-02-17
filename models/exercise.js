@@ -40,10 +40,6 @@ const ExerciseSchema = new Schema({
         required: () => {
             return this.type == "cardio";
         }
-    },
-    date: {
-        type: Date,
-        
     }
 });
 

@@ -1,11 +1,13 @@
 var express = require('express');
-const Exercise = require('../models/exercise');
+const Exercise = require('../models/Exercise');
 var router = express.Router();
 var Workout = require('../models/Workout');
+var mongoose = require('mongoose');
 
 router.post('/workouts', async (req, res, next) => {
+    let workout = null;
     try {
-        await Workout.create({
+        workout = await Workout.create({
             exercises: []
         });
     }
@@ -14,7 +16,7 @@ router.post('/workouts', async (req, res, next) => {
         return res.sendStatus(500);
     }
 
-    res.sendStatus(200);
+    res.send(workout);
 });
 
 router.get('/workouts', async (req, res, next) => {
@@ -27,11 +29,12 @@ router.get('/workouts', async (req, res, next) => {
         return res.sendStatus(500);
     }
 
-    res.json(workouts);
+    res.send(workouts);
 });
 
-router.put('/workouts/:_id', async (req, res, next) => {
-    if (req.params._id === "undefined") {
+router.put('/workouts/:workoutId', async (req, res, next) => {
+    console.log("workoutId:",req.params.workoutId, !!req.params.workoutId );
+    if (req.params.workoutId === "undefined") {
         try {
             const ex = await Exercise.create(req.body);
 
@@ -45,10 +48,13 @@ router.put('/workouts/:_id', async (req, res, next) => {
         }
     } else {
         try {
-            //Still requires testing
-            await Workout.findByIdAndUpdate(req.params._id,{
-                $push: {exercises: req.body}
+            const ex = await Exercise.create(req.body);
+
+            await Workout.findByIdAndUpdate(mongoose.Types.ObjectId(req.params.workoutId),{
+                $push: {exercises: ex._id}
             });
+
+            return res.send(ex);
         }
         catch(ex) {
             console.error(ex);
@@ -58,12 +64,5 @@ router.put('/workouts/:_id', async (req, res, next) => {
 
     res.sendStatus(200);
 });
-
-router.get('/workouts/range', async (req, res, next) => { 
-
-
-
-
-})
 
 module.exports = router;
