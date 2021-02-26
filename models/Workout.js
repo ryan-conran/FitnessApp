@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ExerciseSchema = new Schema({
-   exercises: [{
     type: {
         type: String,
         enum: ["resistance", "cardio"],
@@ -42,7 +41,6 @@ const ExerciseSchema = new Schema({
             return this.type == "cardio";
         }
     }    
-   }]
 });
 
 const Exercise = mongoose.model("Exercise", ExerciseSchema);

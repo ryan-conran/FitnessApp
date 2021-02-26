@@ -4,8 +4,12 @@ const Schema = mongoose.Schema;
 
 const WorkoutSchema = new Schema({
     exercises: [
-        {type: mongoose.Schema.Types.ObjectId, ref: 'Exercise', require: false}
-    ]
+        {type: Schema.Types.ObjectId, ref: 'Exercise'}
+    ],
+
+    date: {
+        type: Date, default:Date.now()
+    } 
 });
 
 const Workout = mongoose.model("Workout", WorkoutSchema);

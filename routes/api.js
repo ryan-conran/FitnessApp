@@ -1,29 +1,30 @@
 var express = require('express');
-// const Exercise = require('../models/Workout');
+const Exercise = require('../models/Workout');
 var router = express.Router();
 var Workout = require('../models/Workout2');
 var mongoose = require('mongoose');
 
-router.post('/workouts', async (req, res, next) => {
-    let workout = null;
-    try {
-        workout = await Workout.create({
-            exercises: []
-        });
-    }
-    catch(ex) {
-        console.error(ex);
-        return res.sendStatus(500);
-    }
+// router.post('/workouts', async (req, res, next) => {
+//     let workout = null;
+//     try {
+//         workout = await Workout.create({
+//             exercises: []
+//         });
+//     }
+//     catch(ex) {
+//         console.error(ex);
+//         return res.sendStatus(500);
+//     }
 
-    res.send(workout);
-});
+//     res.send(workout);
+// });
 
 router.get('/workouts', async (req, res, next) => {
     let workouts = null;
     try {
         workouts = await Workout.find()
-        // .populate("exercises");
+        .populate("exercises");
+        res.json(workouts);
     }
     catch(ex) {
         console.error(ex);
@@ -33,30 +34,31 @@ router.get('/workouts', async (req, res, next) => {
     res.send(workouts);
 });
 
-router.put('/workouts/:workoutId', async (req, res, next) => {
+router.put('/workouts/:workoutId', async (req, res) => {
     console.log("workoutId:",req.params.workoutId, !!req.params.workoutId );
     console.log(req.body)
     if (req.params.workoutId === "undefined") {
         try {
             const ex = await Exercise.create(req.body);
-
+            console.log(ex);
             await Workout.create({
                 exercises: [ex._id]
             });
+            return res.json(ex);
         }
         catch(ex) {
-            console.error(ex);
+            console.error(ex, "Hellow World");
             return res.sendStatus(500);
         }
     } else {
         try {
-            // const ex = await Exercise.create(req.body);
-
+            const ex = await Exercise.create(req.body);
+                console.log("line 54 code");
             await Workout.findByIdAndUpdate(mongoose.Types.ObjectId(req.params.workoutId),{
-                $push: {exercises: req.body}
+                $push: {exercises: ex}
             });
-
-            return res.send(ex);
+                console.log(ex);
+            return res.json(ex);
         }
         catch(ex) {
             console.error(ex);
