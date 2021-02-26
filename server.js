@@ -11,7 +11,7 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/Workout2", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://ryan-conran:Bridgehouse11%21@cluster0.ilxqg.mongodb.net/FitnessApp?authSource=admin&replicaSet=atlas-b5epef-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true", {
   useNewUrlParser: true,
   useFindAndModify: false
 });
